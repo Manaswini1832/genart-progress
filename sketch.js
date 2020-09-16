@@ -28,17 +28,19 @@ const sketch = () => {
         let u = count <= 1 ? 0.5 : x / (count - 1);
         let v = count <= 1 ? 0.5 : y / (count - 1);
 
+        const radius = Math.abs(random.noise2D(u, v) * 0.025);
+
         points.push({
           color: random.pick(palette),
           position: [u, v],
-          radius: Math.abs(0.003 + random.gaussian() * 0.005), //For organic randomness
+          radius,
         });
       }
     }
     return points;
   };
 
-  random.setSeed(512);
+  // random.setSeed(512); //Adds deterministic randomness
   const points = createGrid().filter(() => random.value() > 0.5);
   const margin = 300;
 
